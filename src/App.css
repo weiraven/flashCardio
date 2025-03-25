@@ -1,42 +1,213 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.header {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header h2 {
+  color: rgb(160, 78, 255);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.flashcard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px;
+  perspective: 1000px; /* for 3D effect */
+  margin-bottom: 5px;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
+.image-attribution {
+  margin-top: 5px; /* reduces top gap significantly */
+  font-size: 1rem;
   color: #888;
+  text-align: center;
+}
+
+.image-attribution a {
+  color: rgb(160, 78, 255);
+  text-decoration: none;
+}
+
+.image-attribution a:hover {
+  text-decoration: underline;
+}
+
+.flashcard {
+  width: 600px;
+  height: 450px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease-in-out;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.front, .back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* fallback if image fails */
+  background-size: cover;
+  background-position: center;
+}
+
+.front h2 {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 2rem;
+  z-index: 10;
+}
+
+.front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.no-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.back {
+  background: white;
+  transform: rotateY(180deg);
+}
+
+.back h2 {
+  font-size: 2rem;
+  color: #000;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.counter h3 {
+  padding: 5px;
+  margin: 0;
+}
+
+.counter p {
+  font-size: 18px;
+  color: rgb(160, 78, 255);
+  padding: 5px;
+  margin: 0;
+}
+
+.guess-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+
+}
+
+.guess-container input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.guess-container button {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  margin: 10px;
+}
+
+.guess-container button:hover {
+  background-color: rgb(160, 78, 255);
+}
+
+.guess-container .feedback {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.button-container .navbutton {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: rgb(160, 78, 255);
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  margin: 10px;
+  outline: none; 
+}
+
+.button-container .navbutton:hover {
+  background-color: #1a1a1a;
+}
+
+.button-container .navbutton.unshuffle {
+  background-color: #1a1a1a;
+}
+
+.button-container .navbutton.unshuffle:hover {
+  background-color: rgb(160, 78, 255);
 }
