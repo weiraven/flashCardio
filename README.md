@@ -27,7 +27,7 @@ All images fetched dynamically via [Unsplash](https://unsplash.com). Each displa
 ### Clone Repository
 
 ```bash
-git clone your-repo-url
+git clone https://github.com/weiraven/flashCardio.git
 cd flashcardio
 ```
 
