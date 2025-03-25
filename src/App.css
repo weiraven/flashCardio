@@ -4,6 +4,12 @@
   text-align: center;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -53,6 +59,15 @@
   box-shadow: 0 0 8px rgba(160, 78, 255, 0.5);
 }
 
+.flashcard-section {
+  display: flex;
+  align-items: center; /* Align tops neatly */
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  width: 100%;
+}
+
 .flashcard-container {
   display: flex;
   justify-content: center;
@@ -60,6 +75,10 @@
   min-height: 450px;
   perspective: 1000px; /* for 3D effect */
   margin-bottom: 5px;
+}
+
+.flashcard-and-attribution {
+  flex: 0 0 auto;
 }
 
 .image-attribution {
@@ -219,12 +238,18 @@
 }
 
 .button-container {
+  position: absolute;
+  left: calc(50% + 320px); /* Adjust depending on flashcard width (half of flashcard width + margin) */
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  justify-content: center;
-  gap: 3px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .button-container .navbutton {
+  width: 120px; /* ensure uniform button width */
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 0.5em 1em;
@@ -234,8 +259,7 @@
   background-color: rgb(160, 78, 255);
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
-  margin: 10px;
-  outline: none; 
+  outline: none;
 }
 
 .button-container .navbutton:hover {

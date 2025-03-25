@@ -123,12 +123,27 @@ const App = () => {
           </div>
         </div>
       </div>
+      
+      <div className="flashcard-section">
+        <div className="flashcard-and-attribution">
+          {currentCard ? (
+            <Flashcard card={currentCard} isFlipped={isFlipped} handleFlip={handleFlip} />
+          ) : (
+            <h2>Loading...</h2>
+          )}
+        </div>
 
-      {currentCard ? (
-        <Flashcard card={currentCard} isFlipped={isFlipped} handleFlip={handleFlip} />
-      ) : (
-        <h2>Loading...</h2>
-      )}
+        <div className="button-container">
+          <button className={`navbutton ${shuffled ? 'unshuffle' : ''}`} onClick={handleShuffle}>
+          {shuffled ? 'Unshuffle' : 'Shuffle'}
+          </button>
+          {backstack.length > 0 && <button className="navbutton" onClick={handleBack}>Back</button>}
+          {backstack.length < flashcardData.length - 1 && (
+            <button className="navbutton" onClick={handleNext}>Next</button>
+          )}
+          {backstack.length > 0 && <button className="navbutton" onClick={handleReset}>Reset</button>}
+        </div>
+       </div>
 
       <div className="counter">
         <h3> {backstack.length + 1} out of {filteredCards.length} </h3>
@@ -144,17 +159,6 @@ const App = () => {
 
       <div className="feedback-container">
         <h3>{feedback}</h3>
-      </div>
-
-      <div className="button-container">
-        <button className={`navbutton ${shuffled ? 'unshuffle' : ''}`} onClick={handleShuffle}>
-        {shuffled ? 'Unshuffle' : 'Shuffle'}
-        </button>
-        {backstack.length > 0 && <button className="navbutton" onClick={handleBack}>Back</button>}
-        {backstack.length < flashcardData.length - 1 && (
-          <button className="navbutton" onClick={handleNext}>Next</button>
-        )}
-        {backstack.length > 0 && <button className="navbutton" onClick={handleReset}>Reset</button>}
       </div>
 
     </div>
