@@ -86,7 +86,7 @@ flashcardio/
 
 Here's a walkthrough flashCardio:
 
-<img src='https://github.com/weiraven/flashCardio/blob/main/public/images/flashCardio-demo.gif' title='Video Walkthrough' width='800' alt='Video Walkthrough' />
+<img src='https://github.com/weiraven/flashCardio/blob/main/public/images/flashCardio-demo.gif' title='Video Walkthrough' width='1000' alt='Video Walkthrough' />
 
 GIF created with [ScreenToGif](https://www.screentogif.com/) for Windows
 
