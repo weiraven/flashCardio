@@ -6,8 +6,9 @@ import { useState, useEffect } from 'react';
 const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 
 const App = () => {
-
-  const [cardOrder, setCardOrder] = useState(flashcardData.map(card => card.id)); 
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [filteredCards, setFilteredCards] = useState(flashcardData);
+  const [cardOrder, setCardOrder] = useState(filteredCards.map(card => card.id)); 
   const [shuffled, setShuffled] = useState(false);
   const [currentCard, setCurrentCard] = useState(null);
   const [backstack, setBackstack] = useState([]);
@@ -18,16 +19,27 @@ const App = () => {
   const [bestStreak, setBestStreak] = useState(0);
 
   useEffect(() => {
-    setCardOrder(flashcardData.map(card => card.id));
-    setCurrentCard(flashcardData[0]);
-  }, []);
+    const cards = selectedCategory === 'All Categories'
+      ? flashcardData
+      : flashcardData.filter(card => card.category === selectedCategory);
+
+    setFilteredCards(cards);
+    setCardOrder(cards.map(card => card.id));
+    setCurrentCard(cards[0]);
+    setBackstack([]);
+    setIsFlipped(false);
+    setCurrentStreak(0);
+    setFeedback('');
+  }, [selectedCategory]);
+
+  const uniqueCategories = ['All Categories', ...new Set(flashcardData.map(card => card.category))];
   
   const handleFlip = () => setIsFlipped(!isFlipped);
 
   const handleNext = () => {
     const currentIndex = cardOrder.indexOf(currentCard.id);
     const nextIndex = (currentIndex + 1) % cardOrder.length;
-    const nextCard = flashcardData.find(card => card.id === cardOrder[nextIndex]);
+    const nextCard = filteredCards.find(card => card.id === cardOrder[nextIndex]);
     setBackstack([...backstack, currentCard]);
     setCurrentCard(nextCard);
     setIsFlipped(false);
@@ -51,11 +63,11 @@ const App = () => {
     setShuffled(newShuffled);
     const shuffledOrder = newShuffled 
       ? [...cardOrder].sort(() => Math.random() - 0.5)
-      : flashcardData.map(card => card.id);
+      : filteredCards.map(card => card.id);
 
     setCardOrder(shuffledOrder);
     setBackstack([]);
-    setCurrentCard(flashcardData.find(card => card.id === shuffledOrder[0]));
+    setCurrentCard(filteredCards.find(card => card.id === shuffledOrder[0]));
     setCurrentStreak(0);
     setIsFlipped(false);
     setGuess('');
@@ -77,14 +89,19 @@ const App = () => {
       if (newStreak > bestStreak) setBestStreak(newStreak);
       setFeedback(
         newStreak >= 2 
-        ? `¡Correcto! You're on a streak of ${newStreak}!`
-        : '¡Correcto!'
+        ? `Awesome! You're on a streak of ${newStreak}!`
+        : 'Correct!'
       );
       setIsFlipped(true);
     } else {
-      setFeedback('Incorrecto, intenta de nuevo.');
+      setFeedback('Incorrect. Try again.');
       setCurrentStreak(0);
     }
+  };
+
+  const categoryMessage = {
+    'Vocabulario español': '¡Practiquemos español!',
+    'All Categories': 'Ready, set, learn!'
   };
 
   return (
@@ -92,7 +109,19 @@ const App = () => {
       
       <div className="header">
         <h1>flashCardio</h1>
-        <h2>¡Practiquemos español!</h2>
+        <div className="header-content">
+          <h2>{categoryMessage[selectedCategory] || 'Let\'s learn!'}</h2>
+          <div className="category-select">
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {uniqueCategories.map(category => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
 
       {currentCard ? (
@@ -102,14 +131,14 @@ const App = () => {
       )}
 
       <div className="counter">
-        <h3> {backstack.length + 1} out of {flashcardData.length} </h3>
+        <h3> {backstack.length + 1} out of {filteredCards.length} </h3>
       </div>
 
       <div className="guess-container">
         <input type="text" value={guess} className="guess-input"
         onChange={handleGuessChange} 
         onKeyPress={(e) => e.key === 'Enter' && handleSubmitGuess(e)}
-        placeholder="Tu respuesta aquí"/>
+        placeholder="Your answer here"/>
         <button onClick={handleSubmitGuess}>Submit</button>
       </div>
 

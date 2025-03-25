@@ -5,13 +5,52 @@
 }
 
 .header {
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.header h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* spacing between h2 and select */
+  margin: 30px;
 }
 
 .header h2 {
   color: rgb(160, 78, 255);
+  margin: 0;
+}
+
+.category-select {
+  margin: 0;
+}
+
+.category-select select {
+  padding: 5px 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1.1rem;
+  font-family: inherit;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.category-select select:hover,
+.category-select select:focus {
+  border-color: rgb(160, 78, 255);
+  outline: none;
+  box-shadow: 0 0 8px rgba(160, 78, 255, 0.5);
 }
 
 .flashcard-container {
@@ -127,8 +166,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .counter h3 {
@@ -147,7 +185,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 10px;
 
 }
 
